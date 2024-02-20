@@ -1,0 +1,9 @@
+["seq",
+  ["set", "a", 0],
+  ["repeat", 10, ["seq",
+    ["set", "a", ["call", 
+                    ["func", ["num"],  ["add", ["get", "num"], 1]
+    ], ["get", "a"]]],
+    ["print", ["get", "a"]]
+  ]]
+]

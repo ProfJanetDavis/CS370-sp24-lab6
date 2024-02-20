@@ -9,15 +9,17 @@ def do_add(env, args):
 
 # [call]
 def do_call(env, args):
-    # Set up the call.
-    assert len(args) >= 1
-    name = args[0]
-    values = [do(env, a) for a in args[1:]]
-
     # Find the function.
-    func = env_get(env, name)
+    assert len(args) >= 1
+    if isinstance(args[0], str):
+        func = env_get(env, args[0])
+    else:
+        func = do(env, args[0])
     assert isinstance(func, list) and (func[0] == "func")
     params, body = func[1], func[2]
+ 
+    # Evaluate argument values and check against parameters.
+    values = [do(env, a) for a in args[1:]]    
     assert len(values) == len(params)
 
     # Run in new environment.

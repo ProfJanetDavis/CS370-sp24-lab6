@@ -36,17 +36,17 @@ def do_comment(env, args):
 
 # [func]
 def do_func(env, args):
-    if len(args) == 2:
-        params = args[0]
-        body = args[1]
-        return ["func", params, body]
-    elif len(args) == 3:
+    assert len(args) >= 1
+    assert isinstance(args[0], (str, list))
+    if isinstance(args[0], str):
         name = args[0]
         params = args[1]
-        body = args[2]
-        env_set(env, name, ["func", params, body])
-    else:
-        raise AssertionError       
+        body = ["seq"] + args[2:]
+        env_set(env, name, ["func", params, body])        
+    elif isinstance(args[0], list):
+        params = args[0]
+        body = ["seq"] + args[1:]
+        return ["func", params, body]
 # [/func]
 
 def do_get(env, args):
@@ -116,7 +116,7 @@ def do(env, instruction):
     if not isinstance(instruction, list):
         return instruction
     op, args = instruction[0], instruction[1:]
-    assert op in OPERATIONS
+    assert op in OPERATIONS, op
     return OPERATIONS[op](env, args)
 
 def env_get(env, name):

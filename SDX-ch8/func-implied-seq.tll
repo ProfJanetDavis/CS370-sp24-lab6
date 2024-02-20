@@ -1,0 +1,8 @@
+["seq",
+  ["func", "print_twice", ["str"],
+        ["print", ["get", "str"]],
+        ["print", ["get", "str"]]       
+  ],
+  ["set", "a", "hello"],
+  ["call", "print_twice", ["get", "a"]]
+]

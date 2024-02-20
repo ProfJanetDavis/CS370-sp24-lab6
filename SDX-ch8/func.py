@@ -36,10 +36,17 @@ def do_comment(env, args):
 
 # [func]
 def do_func(env, args):
-    assert len(args) == 2
-    params = args[0]
-    body = args[1]
-    return ["func", params, body]
+    if len(args) == 2:
+        params = args[0]
+        body = args[1]
+        return ["func", params, body]
+    elif len(args) == 3:
+        name = args[0]
+        params = args[1]
+        body = args[2]
+        env_set(env, name, ["func", params, body])
+    else:
+        raise AssertionError       
 # [/func]
 
 def do_get(env, args):

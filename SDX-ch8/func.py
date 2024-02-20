@@ -40,9 +40,8 @@ def do_func(env, args):
     assert isinstance(args[0], (str, list))
     if isinstance(args[0], str):
         name = args[0]
-        params = args[1]
-        body = ["seq"] + args[2:]
-        env_set(env, name, ["func", params, body])        
+        func = do_func(env, args[1:])
+        env_set(env, name, func)        
     elif isinstance(args[0], list):
         params = args[0]
         body = ["seq"] + args[1:]

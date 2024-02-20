@@ -129,6 +129,9 @@ def env_set(env, name, value):
     assert isinstance(name, str)
     for e in reversed(env):
         if name in e:
+            if isinstance(e[name], list):
+                assert e[name][0] != "func", \
+                       f"{name} is a function, cannot reassign"
             e[name] = value
             return
     env[-1][name] = value
